@@ -1,5 +1,5 @@
 // number to match RNG
-var mainRng = Math.floor((Math.random() * 120));
+var mainRng = Math.floor((Math.random() * (120-19)) + 19);
 console.log(mainRng + "mainrng");
 
 // crystal RNG
@@ -26,13 +26,18 @@ var lossCount = 0;
 // initiate game
 function initGame() {
     assignRandomNumberToMatch();
-}
+    resetTotalScoreToZero();
+};
 
 initGame()
 
 // Load random number to match between 
 function assignRandomNumberToMatch(){
     $("#number-to-match").text("Number to match:" + " " + mainRng);
+}
+
+function resetTotalScoreToZero(){
+    $("total-score").text("Total:" + " " + totalScore); 
 }
 
 // add every time a crystal is clicked
@@ -44,53 +49,57 @@ yellowNumber = parseInt(yellowRng);
 $("#blue-crystal").click(function(){
     totalScore = totalScore + blueNumber;
     $("#total-score").text("Total Score:" + " " + totalScore);
+    
+    // everytime the player wins/loses update the score by 1
     if (totalScore === mainRng) {
         winCount++;
         $("#win-count").text("Wins: " + winCount);
-        alert("you won!");
     } else if (totalScore > mainRng){
-        lossCount++
+        lossCount++;
         $("#loss-count").text("Losses: " + lossCount);
-        alert("you lost!");
     };
 });
 
 $("#green-crystal").click(function(){
     totalScore = totalScore + greenNumber;
     $("#total-score").text("Total Score:" + " " + totalScore);
+
+    // everytime the player wins/loses update the score by 1
     if (totalScore === mainRng) {
-        alert("you won!");
+        winCount++;
+        $("#win-count").text("Wins: " + winCount);
     } else if (totalScore > mainRng){
-        alert("you lost!");
+        lossCount++
+        $("#loss-count").text("Losses: " + lossCount);
     };
 });
 
 $("#red-crystal").click(function(){
     totalScore = totalScore + redNumber;
     $("#total-score").text("Total Score:" + " " + totalScore);
+
+    // everytime the player wins/loses update the score by 1
     if (totalScore === mainRng) {
-        alert("you won!");
+        winCount++;
+        $("#win-count").text("Wins: " + winCount);
     } else if (totalScore > mainRng){
-        alert("you lost!");
+        lossCount++
+        $("#loss-count").text("Losses: " + lossCount);
     };
 });
 
 $("#yellow-crystal").click(function(){
     totalScore = totalScore + yellowNumber;
     $("#total-score").text("Total Score:" + " " + totalScore);
+
+    // everytime the player wins/loses update the score by 1
     if (totalScore === mainRng) {
-        alert("you won!");
+        winCount++;
+        $("#win-count").text("Wins: " + winCount);
     } else if (totalScore > mainRng){
-        alert("you lost!");
+        lossCount++
+        $("#loss-count").text("Losses: " + lossCount);
     };
 });
+console.log(totalScore);
 
-// everytime the player wins update the score by 1
-
-if (totalScore == mainRng) {
-    alert("you won!");
-} else if (totalScore > mainRng){
-    alert("you lost!");
-};
-
-// everytime the player loses update the score by 1
