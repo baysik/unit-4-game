@@ -1,19 +1,14 @@
 // number to match RNG
-var mainRng = Math.floor((Math.random() * (120-19)) + 19);
-console.log(mainRng + "mainrng");
+var mainRng;
 
 // crystal RNG
-var blueRng = Math.floor((Math.random() * 12) + 1);
-console.log(blueRng);
+var blueRng;
 
-var greenRng = Math.floor((Math.random() * 12) + 1);
-console.log(greenRng);
+var greenRng;
 
-var redRng = Math.floor((Math.random() * 12) + 1);
-console.log(redRng);
+var redRng;
 
-var yellowRng = Math.floor((Math.random() * 12) + 1);
-console.log(yellowRng);
+var yellowRng;
 
 
 // starting total score
@@ -23,83 +18,86 @@ var totalScore = 0;
 var winCount = 0;
 var lossCount = 0;
 
+// has game started
+var gameStart = false;
+
+initGame();
 // initiate game
 function initGame() {
-    assignRandomNumberToMatch();
-    resetTotalScoreToZero();
+
+    totalScore = 0;
+
+    mainRng = Math.floor((Math.random() * (120-19)) + 19);
+    console.log(mainRng + "mainrng");
+
+    blueRng = Math.floor((Math.random() * 12) + 1);
+    console.log(blueRng);
+
+    greenRng = Math.floor((Math.random() * 12) + 1);
+    console.log(greenRng);
+
+    redRng = Math.floor((Math.random() * 12) + 1);
+    console.log(redRng);
+
+    yellowRng = Math.floor((Math.random() * 12) + 1);
+    console.log(yellowRng);
+
+    resetDOM();
+
+};
+function startGame(){
+    if(!gameStart){
+        gameStart = true;
+        checkGuess();
+    }
 };
 
-initGame()
-
-// Load random number to match between 
-function assignRandomNumberToMatch(){
-    $("#number-to-match").text("Number to match:" + " " + mainRng);
+function resetDOM(){
+    $("#total-score").text("Total Score:" + " " + totalScore);
+    $("#number-to-match").text("Number to match: " + mainRng);
+    startGame();
 }
 
-function resetTotalScoreToZero(){
-    $("total-score").text("Total:" + " " + totalScore); 
-}
+function checkGuess(){
+    $("#blue-crystal").click(function(){
+        totalScore += blueRng;
+        updateDOM();
+        checkForWinOrLoss();
+        console.log(blueRng)
+    });
 
-// add every time a crystal is clicked
-blueNumber = parseInt(blueRng);
-greenNumber = parseInt(greenRng);
-redNumber = parseInt(redRng);
-yellowNumber = parseInt(yellowRng);
+    $("#green-crystal").click(function(){
+        totalScore += greenRng;
+        updateDOM();
+        checkForWinOrLoss();
+        console.log(greenRng + "green");
+    });
 
-$("#blue-crystal").click(function(){
-    totalScore = totalScore + blueNumber;
-    $("#total-score").text("Total Score:" + " " + totalScore);
-    
-    // everytime the player wins/loses update the score by 1
+    $("#red-crystal").click(function(){
+        totalScore += redRng;
+        updateDOM();
+        checkForWinOrLoss();
+    });
+
+    $("#yellow-crystal").click(function(){
+        totalScore += yellowRng;
+        updateDOM();
+        checkForWinOrLoss();
+    });
+};
+
+function checkForWinOrLoss(){
     if (totalScore === mainRng) {
         winCount++;
         $("#win-count").text("Wins: " + winCount);
-    } else if (totalScore > mainRng){
-        lossCount++;
-        $("#loss-count").text("Losses: " + lossCount);
-    };
-});
-
-$("#green-crystal").click(function(){
-    totalScore = totalScore + greenNumber;
-    $("#total-score").text("Total Score:" + " " + totalScore);
-
-    // everytime the player wins/loses update the score by 1
-    if (totalScore === mainRng) {
-        winCount++;
-        $("#win-count").text("Wins: " + winCount);
-    } else if (totalScore > mainRng){
-        lossCount++
-        $("#loss-count").text("Losses: " + lossCount);
-    };
-});
-
-$("#red-crystal").click(function(){
-    totalScore = totalScore + redNumber;
-    $("#total-score").text("Total Score:" + " " + totalScore);
-
-    // everytime the player wins/loses update the score by 1
-    if (totalScore === mainRng) {
-        winCount++;
-        $("#win-count").text("Wins: " + winCount);
+        initGame();
     } else if (totalScore > mainRng){
         lossCount++
         $("#loss-count").text("Losses: " + lossCount);
+        initGame();
     };
-});
+};
 
-$("#yellow-crystal").click(function(){
-    totalScore = totalScore + yellowNumber;
-    $("#total-score").text("Total Score:" + " " + totalScore);
-
-    // everytime the player wins/loses update the score by 1
-    if (totalScore === mainRng) {
-        winCount++;
-        $("#win-count").text("Wins: " + winCount);
-    } else if (totalScore > mainRng){
-        lossCount++
-        $("#loss-count").text("Losses: " + lossCount);
-    };
-});
-console.log(totalScore);
-
+function updateDOM(){
+    $("#total-score").text("Total Score: " + totalScore);
+};
