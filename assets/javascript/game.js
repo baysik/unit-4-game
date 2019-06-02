@@ -10,6 +10,8 @@ var redRng;
 
 var yellowRng;
 
+var array = [];
+
 
 // starting total score
 var totalScore = 0;
@@ -32,19 +34,41 @@ function initGame() {
 
     blueRng = Math.floor((Math.random() * 12) + 1);
     console.log(blueRng);
+    array.push(blueRng);
 
     greenRng = Math.floor((Math.random() * 12) + 1);
     console.log(greenRng);
+    array.push(greenRng);
 
     redRng = Math.floor((Math.random() * 12) + 1);
     console.log(redRng);
+    array.push(redRng);
 
     yellowRng = Math.floor((Math.random() * 12) + 1);
     console.log(yellowRng);
+    array.push(yellowRng);
 
+    // duplicateCheck();
     resetDOM();
 
 };
+
+// function duplicateCheck(){
+//     console.log(array + "array");
+//     if (array[0] === array[1] || array[2] || array[3]){
+//         initGame();
+//     }
+//     else if (array[1] === array[0] || array[2] || array[3]){
+//         initGame();
+//     }
+//     else if (array[2] === array[1] || array[0] || array[3]){
+//         initGame();
+//     }
+//     else if (array[3] === array[1] || array[2] || array[0]){
+//         initGame();
+//     }
+// };
+
 function startGame(){
     if(!gameStart){
         gameStart = true;
